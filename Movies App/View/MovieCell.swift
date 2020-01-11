@@ -33,10 +33,9 @@ class MovieCell: UICollectionViewCell {
                 print("Error: \(err.localizedDescription)")
             }
         }
-        print("Try: \(String(describing: moviesData.name))")
         movieLbl.text = moviesData.name
         yearLbl.text = moviesData.year
-        ratingLbl.text = moviesData.rating
+        ratingLbl.text = moviesData.type
         
     }
 }

@@ -13,13 +13,13 @@ class MoviesDataModel {
     var image : String?
     var name : String?
     var year : String?
-    var rating : String?
+    var type : String?
     
-    init(image:String, name:String, year:String, rating:String) {
+    init(image:String, name:String, year:String, type:String) {
         self.image = image
         self.name = name
         self.year = year
-        self.rating = rating
+        self.type = type
     }
 }
 

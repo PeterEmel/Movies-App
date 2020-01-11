@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-import SwiftSoup
+import SVProgressHUD
 
 
 class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -30,12 +30,16 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         fetchMoviesData(url: url)
         
+            SVProgressHUD.show(withStatus: "Loading...")
+            Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+        
     }
     
     
     //Variables
-    let OMDB_API = "http://www.omdbapi.com/?apikey=db8b14a5&t="
+    let OMDB_API = "http://www.omdbapi.com/?apikey=db8b14a5&s="
     let i = "i=tt3896198"
+    
     
     var movieCellObj = MovieCell()
     var moviesArray = [MoviesDataModel]()
@@ -84,19 +88,24 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     func moviesDatajson(json:JSON) {
         
-        let image = json["Poster"].stringValue
-        let name = json["Title"].stringValue
-        let year = json["Year"].stringValue
-        let rating = json["imdbRating"].stringValue
-        print("Name: \(rating)")
-        
-        let moviesData = MoviesDataModel(image: image, name: name, year: year, rating: rating)
-        
-        moviesArray.append(moviesData)
-        print(moviesArray)
-        moviesCollectionView.reloadData()
-
+        for (_, subjson) in json["Search"] {
+            let image = subjson["Poster"].stringValue
+            let name = subjson["Title"].stringValue
+            let year = subjson["Year"].stringValue
+            let type = subjson["Type"].stringValue
+            
+            let moviesData = MoviesDataModel(image: image, name: name, year: year, type: type)
+            
+            moviesArray.append(moviesData)
+            //print(moviesArray)
+            //moviesCollectionView.reloadData()
+            
+        }
+            
         //movieCellObj.updateUI(data: moviesData)
+        print(moviesArray.count)
+        moviesCollectionView.reloadData()
+        update()
     }
     
     
@@ -116,6 +125,9 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         }else{
             return UICollectionViewCell()
         }
+    }
+    @objc func update() {
+        SVProgressHUD.dismiss()
     }
 
 }

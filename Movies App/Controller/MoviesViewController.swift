@@ -18,17 +18,23 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     //Outlets
     @IBOutlet weak var moviesCollectionView: UICollectionView!
     @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var headerLbl: UILabel!
     
+   
     @IBAction func searchPressed(_ sender: UIButton) {
         moviesArray.removeAll()
         moviesCollectionView.reloadData()
         
-        let movieID = searchTextField.text!
-        //let fileUrl = OMDB_API + movieID
-        let encodedString = movieID.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
-        let url = OMDB_API + encodedString!
+        headerLbl.text = "Search Results 🔍"
         
-        fetchMoviesData(url: url)
+        let movieID = searchTextField.text!
+        let encodedString = movieID.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+        
+        let TMDB_SEARCH = "https://api.themoviedb.org/3/search/multi?api_key=f2a95234eade42f27fdb273fba814302&language=en-US&query=\(encodedString!)&page=1&include_adult=false"
+        
+        print(TMDB_SEARCH)
+
+        fetchMoviesData(url: TMDB_SEARCH)
         
             SVProgressHUD.show(withStatus: "Loading...")
             Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
@@ -37,13 +43,8 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     
     //Variables
-    let OMDB_API = "http://www.omdbapi.com/?apikey=db8b14a5&s="
-    let i = "i=tt3896198"
+    let TMDB_TRENDING = "https://api.themoviedb.org/3/trending/all/day?api_key=f2a95234eade42f27fdb273fba814302"
     
-    let TMDB = "https://api.themoviedb.org/3/trending/all/day?api_key=f2a95234eade42f27fdb273fba814302"
-    
-    
-    var movieCellObj = MovieCell()
     var moviesArray = [MoviesDataModel]()
     
     
@@ -55,12 +56,11 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         moviesCollectionView.delegate = self
         moviesCollectionView.dataSource = self
         
-        fetchMoviesData(url: TMDB)
+        fetchMoviesData(url: TMDB_TRENDING)
         
         
     }
 
-    
     
     func fetchMoviesData(url:String) {
         Alamofire.request(url, method: .get).responseJSON {
@@ -95,8 +95,6 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
             moviesArray.append(moviesData)
             
         }
-            
-        //movieCellObj.updateUI(data: moviesData)
         print(moviesArray.count)
         moviesCollectionView.reloadData()
         update()

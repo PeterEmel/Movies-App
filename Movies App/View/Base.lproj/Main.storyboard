@@ -42,9 +42,6 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MtR-Qm-5e8">
                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
-                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cKY-Ov-7FD">
                                                     <rect key="frame" x="2" y="150" width="148" height="42"/>
@@ -61,10 +58,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vpN-AH-BtL">
-                                                    <rect key="frame" x="2" y="211" width="45" height="15"/>
+                                                    <rect key="frame" x="2" y="212" width="47" height="15"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="⭐️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U1R-QK-rDg">
-                                                            <rect key="frame" x="0.0" y="0.0" width="29" height="15"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="31" height="15"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="15" id="fbU-oz-OI9"/>
                                                             </constraints>
@@ -73,7 +70,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1.1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QX1-Dk-Fdl">
-                                                            <rect key="frame" x="29" y="0.0" width="16" height="15"/>
+                                                            <rect key="frame" x="31" y="0.0" width="16" height="15"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -92,9 +89,9 @@
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="vpN-AH-BtL" secondAttribute="bottom" constant="4" id="18n-Rm-WEH"/>
+                                            <constraint firstAttribute="bottom" secondItem="vpN-AH-BtL" secondAttribute="bottom" constant="3" id="18n-Rm-WEH"/>
                                             <constraint firstItem="vpN-AH-BtL" firstAttribute="leading" secondItem="vSv-qK-7mv" secondAttribute="leading" constant="2" id="V2X-s9-755"/>
-                                            <constraint firstAttribute="trailing" secondItem="vpN-AH-BtL" secondAttribute="trailing" constant="103" id="hsW-Xe-9EH"/>
+                                            <constraint firstAttribute="trailing" secondItem="vpN-AH-BtL" secondAttribute="trailing" constant="101" id="hsW-Xe-9EH"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -141,6 +138,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="EnC-7P-RjZ"/>
                     <connections>
+                        <outlet property="headerLbl" destination="WDb-M4-Sut" id="w2a-p8-Dav"/>
                         <outlet property="moviesCollectionView" destination="edw-Ku-uVc" id="WOw-cI-uaO"/>
                         <outlet property="searchTextField" destination="wLY-mn-Zek" id="Lkt-OA-2QI"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="5HO-fN-I7X"/>

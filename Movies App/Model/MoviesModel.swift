@@ -10,16 +10,25 @@ import Foundation
 
 class MoviesDataModel {
 
-    var image : String?
-    var name : String?
+    var poster : String?
+    var title : String?
+    var title2 : String?
     var year : String?
     var type : String?
+    var rating : Double?
+    var description : String?
+    var image : String?
     
-    init(image:String, name:String, year:String, type:String) {
-        self.image = image
-        self.name = name
+    
+    init(poster:String, title:String, title2:String, year:String, type:String, rating:Double, description:String, image:String) {
+        self.poster = poster
+        self.title = title
+        self.title2 = title2
         self.year = year
         self.type = type
+        self.rating = rating
+        self.description = description
+        self.image = image
     }
 }
 

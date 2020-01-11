@@ -40,6 +40,8 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     let OMDB_API = "http://www.omdbapi.com/?apikey=db8b14a5&s="
     let i = "i=tt3896198"
     
+    let TMDB = "https://api.themoviedb.org/3/trending/all/day?api_key=f2a95234eade42f27fdb273fba814302"
+    
     
     var movieCellObj = MovieCell()
     var moviesArray = [MoviesDataModel]()
@@ -53,25 +55,11 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         moviesCollectionView.delegate = self
         moviesCollectionView.dataSource = self
         
-        //fetchIMDB()
+        fetchMoviesData(url: TMDB)
         
         
     }
-    func fetchIMDB() {
-//        let myURLString = "https://www.imdb.com/chart/top"
-//        guard let myURL = URL(string: myURLString) else {
-//            print("Error: \(myURLString) doesn't seem to be a valid URL")
-//            return
-//        }
-//
-//        do {
-//            let myHTMLString = try String(contentsOf: myURL, encoding: .ascii)
-//            //print("HTML : \(myHTMLString)")
-//
-//        } catch let error {
-//            print("Error: \(error)")
-//        }
-    }
+
     
     
     func fetchMoviesData(url:String) {
@@ -79,8 +67,12 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
             response in
             if response.result.isSuccess {
                 print("Success, Got Movies Data")
+                
+                SVProgressHUD.show(withStatus: "Loading...")
+                Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+                
                 let movieJSON:JSON = JSON(response.result.value!)
-                print(movieJSON)
+                //print(movieJSON)
                 self.moviesDatajson(json: movieJSON)
             }
         }
@@ -88,17 +80,19 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     func moviesDatajson(json:JSON) {
         
-        for (_, subjson) in json["Search"] {
-            let image = subjson["Poster"].stringValue
-            let name = subjson["Title"].stringValue
-            let year = subjson["Year"].stringValue
-            let type = subjson["Type"].stringValue
+        for (_, subjson) in json["results"] {
+            let poster = subjson["poster_path"].stringValue
+            let title = subjson["title"].stringValue
+            let title2 = subjson["original_name"].stringValue
+            let year = subjson["release_date"].stringValue
+            let type = subjson["media_type"].stringValue
+            let rating = subjson["vote_average"].doubleValue
+            let description = subjson["overview"].stringValue
+            let image = subjson["backdrop_path"].stringValue
             
-            let moviesData = MoviesDataModel(image: image, name: name, year: year, type: type)
+            let moviesData = MoviesDataModel(poster: poster, title: title, title2: title2, year: year, type: type, rating:rating, description:description, image:image)
             
             moviesArray.append(moviesData)
-            //print(moviesArray)
-            //moviesCollectionView.reloadData()
             
         }
             

@@ -25,17 +25,24 @@ class MovieCell: UICollectionViewCell {
     func updateUI(moviesData:MoviesDataModel) {
         self.moviesData = moviesData
         
-        if let url = Foundation.URL(string: moviesData.image ?? "https://cdn.onlinewebfonts.com/svg/img_574463.png"){
+        if let url = Foundation.URL(string: "https://image.tmdb.org/t/p/w92\(moviesData.poster!)"){
             do{
                 let data = try Data(contentsOf: url)
                 movieImageView.image = UIImage(data: data)
             }catch let err{
                 print("Error: \(err.localizedDescription)")
+                movieImageView.image = UIImage(named: "noim")
             }
         }
-        movieLbl.text = moviesData.name
-        yearLbl.text = moviesData.year
-        ratingLbl.text = moviesData.type
+        if moviesData.title!.isEmpty {
+            movieLbl.text = moviesData.title2
+        }else{
+            movieLbl.text = moviesData.title
+        }
+        yearLbl.text = moviesData.type
+        
+        let dec = Double(round(10*moviesData.rating!)/10)
+        ratingLbl.text = String(dec)
         
     }
 }

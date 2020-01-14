@@ -51,7 +51,6 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         moviesCollectionView.delegate = self
         moviesCollectionView.dataSource = self
@@ -74,6 +73,9 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
                 let movieJSON:JSON = JSON(response.result.value!)
                 //print(movieJSON)
                 self.moviesDatajson(json: movieJSON)
+            }else{
+                print("Error \(String(describing: response.result.error))")
+                self.headerLbl.text = "Connection Issues"
             }
         }
     }
@@ -121,48 +123,17 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-//        let vc = UIStoryboard(name: "Main", bundle: nil)
-//        let Dvc = vc.instantiateViewController(withIdentifier: "DetailsVC") as? DetailsVC
-//        Dvc?.getDescription = ItemCell.descArray[indexPath.row]
-//        self.navigationController?.pushViewController(Dvc!, animated: true)
-        
         let moviesData = moviesArray[indexPath.row]
         let vc = storyboard?.instantiateViewController(withIdentifier: "detailsController") as? DetailsViewController
         
-//        let dvc = UIStoryboard(name: "detailsViewController", bundle: nil)
-//        let vc = dvc.instantiateViewController(withIdentifier: "detailsController") as? DetailsViewController
-        
-        print("TRY: \(String(describing: moviesData.title))")
-        print(moviesData.description)
         vc?.getTitle = moviesData.title
+        vc?.getTitle2 = moviesData.title2
         vc?.getImage = moviesData.image
-        print(vc?.getImage)
-
-//        if let url = Foundation.URL(string: "https://image.tmdb.org/t/p/w92\(moviesData.poster!)"){
-//            do{
-//                let data = try Data(contentsOf: url)
-//                vc?.imageView.image = UIImage(data: data)
-//            }catch let err{
-//                print("Error: \(err.localizedDescription)")
-//                vc?.imageView.image = UIImage(named: "noim")
-//            }
-//        }
         vc?.getDesc = moviesData.description
 
 
         self.navigationController?.pushViewController(vc!, animated: true)
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "detailsViewController" {
-//           // let destinationVC = segue.destination as! DetailsViewController
-//            //let index = moviesCollectionView.indexPathsForSelectedItems?.drop
-//
-//            let vc = segue.destination as! DetailsViewController
-//
-//            vc.titleLbl.text =
-//            }
-//        }
     
     @objc func update() {
         SVProgressHUD.dismiss()

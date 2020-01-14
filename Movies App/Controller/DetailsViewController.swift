@@ -18,6 +18,7 @@ class DetailsViewController: UIViewController {
     
     //Variables
     var getTitle : String!
+    var getTitle2 : String!
     var getImage : String!
     var getDesc : String!
 
@@ -29,9 +30,13 @@ class DetailsViewController: UIViewController {
 
     }
     override func viewWillAppear(_ animated: Bool) {
-        print("GET: \(getTitle)")
-       
-        titleLbl.text = getTitle
+        //print("GET: \(getTitle)")
+        
+        if getTitle == "" {
+            titleLbl.text = getTitle2
+        }else{
+            titleLbl.text = getTitle
+        }
         
         if let url = Foundation.URL(string: "https://image.tmdb.org/t/p/w500\(getImage!)"){
             do{

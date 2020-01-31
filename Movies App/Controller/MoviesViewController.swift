@@ -19,6 +19,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var moviesCollectionView: UICollectionView!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var headerLbl: UILabel!
+    @IBOutlet weak var leftButton: UIButton!
     
    
     @IBAction func searchPressed(_ sender: UIButton) {
@@ -55,6 +56,7 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         moviesCollectionView.delegate = self
         moviesCollectionView.dataSource = self
         
+        leftButton.frame = CGRect(x: 16, y: 0, width: 60, height: 150)
         fetchMoviesData(url: TMDB_TRENDING)
         
         
@@ -130,6 +132,8 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         vc?.getTitle2 = moviesData.title2
         vc?.getImage = moviesData.image
         vc?.getDesc = moviesData.description
+        
+        print("Image: \(moviesData.image)")
 
 
         self.navigationController?.pushViewController(vc!, animated: true)
@@ -138,6 +142,15 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
     @objc func update() {
         SVProgressHUD.dismiss()
     }
-
+    
+    
+    @IBAction func appNamePressed(_ sender: UIButton) {
+        print("Button code excuted")
+        headerLbl.text = "Top Trending Today🔥"
+        moviesArray.removeAll()
+        fetchMoviesData(url: TMDB_TRENDING)
+        moviesCollectionView.reloadData()
+    }
+    
 }
 

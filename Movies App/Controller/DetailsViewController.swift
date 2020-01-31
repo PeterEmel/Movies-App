@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class DetailsViewController: UIViewController {
     
@@ -41,10 +42,12 @@ class DetailsViewController: UIViewController {
         if let url = Foundation.URL(string: "https://image.tmdb.org/t/p/w500\(getImage!)"){
             do{
                 let data = try Data(contentsOf: url)
+                //imageView.contentMode = .scaleAspectFit
                 imageView.image = UIImage(data: data)
             }catch let err{
                 print("Error: \(err.localizedDescription)")
                 imageView.image = UIImage(named: "noim")
+                
             }
         }
         

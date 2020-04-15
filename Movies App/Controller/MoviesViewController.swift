@@ -26,6 +26,8 @@ class MoviesViewController: UIViewController, UICollectionViewDelegate, UICollec
         moviesArray.removeAll()
         moviesCollectionView.reloadData()
         
+        searchTextField.resignFirstResponder()
+        
         headerLbl.text = "Search Results 🔍"
         
         let movieID = searchTextField.text!
